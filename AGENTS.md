@@ -1,6 +1,6 @@
 # AGENTS.md — Repository Router
 
-**Structural class:** F — product / application / code repository. See [TBHRC GitHub Repository Pre-Structure](https://github.com/tbhrc/org/blob/main/700-architecture/organisation-pre-structure.md).
+**Structural class:** F — product / application / code repository. Organisation-wide structure is owned by [`tbhrc/workspace`](https://github.com/tbhrc/workspace).
 
 <!-- ROUTER_SHARED_LIFECYCLE_START -->
 **KISSS:** Execute authorised work through the shortest capable path. Route from the action required, not words or topics in the request.
@@ -16,7 +16,7 @@
 
 **FolderDesk by iMPLEMENTAi owns the portable, non-secret deployment and recovery architecture for reproducing a working Business AI Operating System; mutable live business/system truth stays with its current owner. The existing ChatGPT FolderDesk connector binding at `https://brain.xva.ae/mcp-http/mcp` is current operational capital and the preferred single ChatGPT ingress to the execution mesh. Preserve that enabled binding while backend/runtime wiring evolves; route authorised node execution behind it rather than creating one ChatGPT connector per machine. Current live node routes are VPS and Mac; the home-server node is reserved in the contract and remains unavailable until its real authorised transport is identified. Replace or recreate the binding only on explicit founder direction after a replacement is live-proven.**
 
-**Repository Fast Links:** [README](README.md) · [Atlas](ATLAS.md) · [Architecture](ARCHITECTURE.md) · [FolderDesk Parity](.github/workflows/reconcile-public-skills.yml) · [Public Skill Allowlist](profiles/tbhrc-reference/public-skill-export.json) · [Issues](https://github.com/tbhrc/folderdesk/issues)
+**Repository Fast Links:** [README](README.md) · [Workspace](https://github.com/tbhrc/workspace) · [Atlas](ATLAS.md) · [Architecture](ARCHITECTURE.md) · [FolderDesk Parity](.github/workflows/reconcile-public-skills.yml) · [Public Skill Allowlist](profiles/tbhrc-reference/public-skill-export.json) · [Issues](https://github.com/tbhrc/folderdesk/issues)
 
 ## Route
 
