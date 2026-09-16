@@ -1,5 +1,6 @@
 {
-  "source_repository": "tbhrc/skills",
+  "source_repository": "tbhrc/workspace",
+  "source_root": ".folderdesk/skills",
   "destination": ".github/skills",
   "preserve": [
     "atlas"
