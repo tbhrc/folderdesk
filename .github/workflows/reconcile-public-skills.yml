@@ -18,19 +18,20 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Checkout canonical private Skills
+      - name: Checkout canonical Workspace Skills
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.SUPER_ADMIN_MANAGER_TBHRC }}
         run: |
           set -euo pipefail
-          source_dir="$RUNNER_TEMP/tbhrc-skills"
-          rm -rf "$source_dir"
-          gh repo clone tbhrc/skills "$source_dir" -- --quiet
+          workspace_dir="$RUNNER_TEMP/tbhrc-workspace"
+          rm -rf "$workspace_dir"
+          gh repo clone tbhrc/workspace "$workspace_dir" -- --quiet
+          test -d "$workspace_dir/.folderdesk/skills"
 
       - name: Sync explicitly approved public Skills
         shell: bash
-        run: python3 scripts/sync_public_skills.py --source "$RUNNER_TEMP/tbhrc-skills" --apply
+        run: python3 scripts/sync_public_skills.py --source "$RUNNER_TEMP/tbhrc-workspace/.folderdesk/skills" --apply
 
       - name: Commit deterministic public-Skill parity update
         shell: bash
@@ -52,7 +53,7 @@ jobs:
           set -euo pipefail
           report="$RUNNER_TEMP/arc-parity.json"
           python3 scripts/reconcile_tbhrc_reference.py \
-            --skills-source "$RUNNER_TEMP/tbhrc-skills" \
+            --skills-source "$RUNNER_TEMP/tbhrc-workspace/.folderdesk/skills" \
             --report "$report"
           {
             echo '### ARC parity report'
