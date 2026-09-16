@@ -5,6 +5,7 @@
 <!-- ROUTER_SHARED_LIFECYCLE_START -->
 **Organisation master:** https://github.com/tbhrc/workspace/blob/main/AGENTS.md — read current `main` first. It owns organisation-wide invariants.
 **Repository overlay:** This Router may specialise ownership, execution risks and Fast Links for this repository, but must not restate, redefine or weaken the master. Route directly from local evidence; load conditional depth only when the task earns it.
+**Durable artifact discipline:** Write only what materially belongs in the canonical artifact; never append commentary, rationale, summaries, status notes, process history or other tail content unless the artifact itself requires it.
 <!-- ROUTER_SHARED_LIFECYCLE_END -->
 
 **FolderDesk by iMPLEMENTAi owns the portable, non-secret deployment and recovery architecture for reproducing a working Business AI Operating System; mutable live business/system truth stays with its current owner. The existing ChatGPT FolderDesk connector binding at `https://brain.xva.ae/mcp-http/mcp` is current operational capital and the preferred single ChatGPT ingress to the execution mesh. Preserve that enabled binding while backend/runtime wiring evolves; route authorised node execution behind it rather than creating one ChatGPT connector per machine. Current live node routes are VPS and Mac; the home-server node remains unavailable until its real authorised transport is identified. Replace or recreate the binding only on explicit founder direction after a replacement is live-proven.**
