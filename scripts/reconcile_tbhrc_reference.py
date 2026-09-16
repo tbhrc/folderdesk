@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Verify the public FolderDesk TBHRC reference against current canonical Skills truth.
+"""Verify the public FolderDesk TBHRC reference against current Workspace Skill truth.
 
 Checks are deliberately bounded:
 1. Router repository membership parity.
-2. Material FolderDesk Fast Links into tbhrc/skills resolve to real paths.
-3. One consolidated report with FolderDesk + Skills source SHAs.
+2. Material FolderDesk Fast Links into Workspace .folderdesk/skills resolve to real paths.
+3. Material current docs contain no legacy tbhrc/skills links.
+4. One consolidated report with FolderDesk + Workspace source SHAs.
 
 The TBHRC profile is an expanded mature reference, not the default deployment topology.
 The script reports drift; it does not mutate source truth.
@@ -29,7 +30,10 @@ MATERIAL_DOCS = (
     ROOT / "VERIFY.md",
     ROOT / "profiles" / "tbhrc-reference" / "README.md",
 )
-SKILLS_URL_RE = re.compile(
+WORKSPACE_SKILLS_URL_RE = re.compile(
+    r"https://github\.com/tbhrc/workspace/(?P<kind>tree|blob)/main/\.folderdesk/skills/(?P<path>[^)\s>#]+)(?:#[^)\s>]*)?"
+)
+LEGACY_SKILLS_URL_RE = re.compile(
     r"https://github\.com/tbhrc/skills/(?P<kind>tree|blob)/main/(?P<path>[^)\s>#]+)(?:#[^)\s>]*)?"
 )
 
@@ -87,28 +91,42 @@ def reference_repositories(reference_path: Path) -> tuple[str, set[str]]:
     return owner, repos
 
 
-def material_skill_links(docs: tuple[Path, ...] = MATERIAL_DOCS) -> list[dict[str, str]]:
+def _collect_links(pattern: re.Pattern[str], doc: Path, source: str) -> list[dict[str, str]]:
+    text = doc.read_text(encoding="utf-8")
     links: list[dict[str, str]] = []
-    seen: set[tuple[str, str, str]] = set()
+    for match in pattern.finditer(text):
+        kind = match.group("kind")
+        rel = unquote(match.group("path")).strip("/")
+        document = str(doc.relative_to(ROOT)) if doc.is_relative_to(ROOT) else doc.name
+        links.append({
+            "document": document,
+            "kind": kind,
+            "path": rel,
+            "url": match.group(0),
+            "source": source,
+        })
+    return links
+
+
+def material_skill_links(docs: tuple[Path, ...] = MATERIAL_DOCS) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
+    current: list[dict[str, str]] = []
+    legacy: list[dict[str, str]] = []
+    seen_current: set[tuple[str, str, str]] = set()
+    seen_legacy: set[tuple[str, str, str]] = set()
     for doc in docs:
         if not doc.exists():
             continue
-        text = doc.read_text(encoding="utf-8")
-        for match in SKILLS_URL_RE.finditer(text):
-            kind = match.group("kind")
-            rel = unquote(urlsplit(match.group(0)).path.split("/main/", 1)[1]).strip("/")
-            document = str(doc.relative_to(ROOT)) if doc.is_relative_to(ROOT) else doc.name
-            key = (document, kind, rel)
-            if key in seen:
-                continue
-            seen.add(key)
-            links.append({
-                "document": document,
-                "kind": kind,
-                "path": rel,
-                "url": match.group(0),
-            })
-    return links
+        for link in _collect_links(WORKSPACE_SKILLS_URL_RE, doc, "workspace"):
+            key = (link["document"], link["kind"], link["path"])
+            if key not in seen_current:
+                seen_current.add(key)
+                current.append(link)
+        for link in _collect_links(LEGACY_SKILLS_URL_RE, doc, "legacy"):
+            key = (link["document"], link["kind"], link["path"])
+            if key not in seen_legacy:
+                seen_legacy.add(key)
+                legacy.append(link)
+    return current, legacy
 
 
 def verify_skill_links(skills_source: Path, links: list[dict[str, str]]) -> list[dict[str, str]]:
@@ -127,25 +145,27 @@ def build_report(skills_source: Path, reference_path: Path = DEFAULT_REFERENCE) 
     _, reference = reference_repositories(reference_path)
     missing = sorted(router - reference)
     extra = sorted(reference - router)
-    links = material_skill_links()
+    links, legacy_links = material_skill_links()
     broken = verify_skill_links(skills_source, links)
-    status = "GREEN" if not missing and not extra and not broken else "DRIFT"
+    status = "GREEN" if not missing and not extra and not broken and not legacy_links else "DRIFT"
     return {
         "status": status,
         "folderdesk_sha": git_sha(ROOT),
-        "skills_sha": git_sha(skills_source),
+        "workspace_sha": git_sha(skills_source),
+        "skill_root": ".folderdesk/skills",
         "router_repository_count": len(router),
         "reference_repository_count": len(reference),
         "missing_in_reference": missing,
         "extra_in_reference": extra,
         "checked_skill_fast_links": len(links),
         "broken_skill_fast_links": broken,
+        "legacy_skill_fast_links": legacy_links,
     }
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Reconcile FolderDesk TBHRC expanded-reference parity")
-    parser.add_argument("--skills-source", required=True, type=Path)
+    parser.add_argument("--skills-source", required=True, type=Path, help="Workspace .folderdesk/skills root")
     parser.add_argument("--reference", type=Path, default=DEFAULT_REFERENCE)
     parser.add_argument("--report", type=Path)
     args = parser.parse_args()
