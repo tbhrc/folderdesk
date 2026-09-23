@@ -9,6 +9,11 @@
   },
   "repositories": [
     {
+      "name": "workspace",
+      "role": "organisation-map",
+      "visibility": "private"
+    },
+    {
       "name": "fd-tiny",
       "role": "folderdesk-bootstrap",
       "visibility": "private"
