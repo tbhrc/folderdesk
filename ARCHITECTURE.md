@@ -6,6 +6,22 @@ The design intentionally combines the strongest proven ideas from FolderDesk Tin
 
 **Fast links:** [README](README.md) · [Atlas](ATLAS.md) · [Router](AGENTS.md) · [Bootstrap](BOOTSTRAP.md) · [Verify](VERIFY.md) · [Manifest](MANIFEST.md)
 
+## Internal OS / public distribution boundary
+
+`tbhrc/folderdesk` is the public/client deployment package. The private internal first-class operating system is `tbhrc/folderdesk-os`.
+
+Promotion direction is deliberate:
+
+```text
+FolderDesk OS internal capability
+→ prove internally
+→ remove private/internal-only assumptions
+→ package the client-safe capability
+→ promote into FolderDesk public distribution
+```
+
+Do not mirror the entire internal OS into this repository.
+
 ## Core operating graph
 
 ```text
