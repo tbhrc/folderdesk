@@ -21,7 +21,7 @@ request
 → stop
 ```
 
-The current live mesh proof routes FD0 to the VPS and Mac through existing transports. A home-server node is reserved in the same contract but remains unavailable until its real authorised transport is identified. This is a routing concern behind the connector, not a reason to create another ChatGPT connector, queue or control plane.
+The current live mesh proof routes FD0 to the VPS, Mac M5 and Home PC behind the same preserved connector. VPS keeps native `vps_*` execution because it benchmarked faster and lighter than Desktop Commander; Mac M5 and Home PC use self-hosted Desktop Commander as primary with their already-certified SSH/reverse-SSH roads retained as automatic pre-dispatch fallback. This routing remains behind one FD0 ingress and is not a reason to create another ChatGPT connector, queue or control plane.
 
 ## Default workspace
 
