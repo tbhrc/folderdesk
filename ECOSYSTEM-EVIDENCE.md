@@ -77,6 +77,31 @@ Derived impact:
 
 This is a targeted benchmark, not a claim that every ecosystem task is 5.1× faster.
 
+## Execution-mesh benchmark — 25 September 2026
+
+A later production benchmark measured how FolderDesk/FD0 should route execution across the shared Talent Bridge + iMPLEMENTAi infrastructure.
+
+| Node | Existing / comparator | Self-hosted Desktop Commander | Certified architecture |
+|---|---:|---:|---|
+| Home PC | reverse SSH mean **5,071.1 ms** across 3 trivial-command runs | **~557.5 ms** first simple-command proof | Desktop Commander primary; reverse SSH fallback |
+| Mac M5 | reverse SSH mean **1,649.5 ms**, p50 **1,646.2 ms** across 8 runs | mean **310.6 ms**, p50 **302.3 ms** across 8 runs | Desktop Commander primary; reverse SSH fallback |
+| VPS | native async subprocess mean **8.49 ms**, p50 **7.35 ms** across 12 runs | mean **33.97 ms**, p50 **32.40 ms** across 12 runs | keep native `vps_*`; Desktop Commander rejected |
+
+The benchmark also tested failure behaviour rather than speed alone:
+
+- Home-PC and M5 Desktop Commander providers were deliberately stopped.
+- The unchanged public FD0 action automatically fell back to the already-certified SSH/reverse-SSH road.
+- Restoring the provider returned the primary route without an FD0 restart.
+- Timeout termination was proven without a surviving matching process.
+- Commands are not replayed across providers after Desktop Commander has accepted them.
+- The public FD0 surface remained **14 actions**.
+
+The VPS result is equally important: Desktop Commander worked technically but duplicated a faster native execution path and added significant resource cost, so it was removed rather than standardised for architectural neatness.
+
+Canonical benchmark: [FD0 Desktop Commander Execution Routing](https://github.com/tbhrc/workspace/tree/main/.folderdesk/benchmarks/fd0-desktop-commander-routing)
+
+This is a targeted execution-routing benchmark, not a claim that every FolderDesk workflow is 5x–9x faster.
+
 ## Current Repository Router proof
 
 On **6 September 2026**, [`tbhrc/skills#394`](https://github.com/tbhrc/skills/issues/394) recorded a point-in-time acceptance across **11 registered repository-root `AGENTS.md` files**: the shared Router body matched, only repository Fast Links differed, and all remained below the 80-line Router limit.
