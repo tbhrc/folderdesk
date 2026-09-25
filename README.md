@@ -26,6 +26,15 @@ That is the entire handoff prompt. The repository owns the deployment instructio
 - polished business outputs through the appropriate document/output tools;
 - optional expansion to more repositories, specialist systems, runtimes or advanced capabilities only when demonstrated need earns them.
 
+## Internal OS boundary
+
+This repository is the **public/client deployable FolderDesk distribution**, not the private internal operating-system source.
+
+- Internal first-class system: **FolderDesk AI Business Operating System (FolderDesk OS)** in private `tbhrc/folderdesk-os`.
+- This repository contains the deliberately productised/deployable subset suitable for client/public distribution.
+- FolderDesk Tiny / FD Tiny is the smallest deployment variant within the public distribution lineage.
+- Internal state, private integrations and enterprise-specific machinery are not copied here automatically.
+
 ## Advanced/reference capability
 
 GitHub provides a much larger platform capability layer—identity/access, search, secrets, Apps/OAuth, APIs, automation, auditability and more. That inventory is useful for architecture and product development, but it is **not a first-day FolderDesk requirement**. See [GitHub Platform Capabilities](GITHUB-PLATFORM-CAPABILITIES.md) when a real deployment need calls for it.
