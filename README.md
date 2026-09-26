@@ -33,6 +33,7 @@ This repository is the **public/client deployable FolderDesk distribution**, not
 - Internal first-class system: **FolderDesk AI Business Operating System (FolderDesk OS)** in private `tbhrc/folderdesk-os`.
 - This repository contains the deliberately productised/deployable subset suitable for client/public distribution.
 - FolderDesk Tiny / FD Tiny is the smallest deployment variant within the public distribution lineage.
+- **FolderDesk Agents** is the agent/harness layer concept. TBHRC's internal organisational role profiles stay in Workspace and are not shipped here automatically; client role profiles are added only when their use is earned.
 - Internal state, private integrations and enterprise-specific machinery are not copied here automatically.
 
 ## Advanced/reference capability
