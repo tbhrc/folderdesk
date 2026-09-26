@@ -11,6 +11,12 @@ A fresh FolderDesk-managed workspace is self-contained. It includes six progress
 
 Live mutable truth stays with the correct owner. FolderDesk connects CRM, accounting, file stores, databases, calendars, memory and specialist runtimes rather than copying them into a competing source of truth.
 
+### Internal OS / FolderDesk Agents boundary
+
+This file is the **public FolderDesk distribution capability catalogue**, not the private FolderDesk OS capability registry.
+
+The private full system is [`tbhrc/folderdesk-os`](https://github.com/tbhrc/folderdesk-os). **FolderDesk Agents** names the agent/harness layer inside the wider architecture; TBHRC organisational role profiles remain in Workspace `.folderdesk/agents/` and are not copied into this public distribution automatically. Public FolderDesk productises only proven, client-safe agent-support capability deliberately.
+
 ### Scope labels
 
 - **Core** — directly implemented by FolderDesk v2.
