@@ -22,6 +22,12 @@ FolderDesk OS internal capability
 
 Do not mirror the entire internal OS into this repository.
 
+## FolderDesk Agents relationship
+
+**FolderDesk Agents** is the agent/harness layer in the wider FolderDesk architecture: durable role identity where a persistent role is warranted, authority/context boundaries, selective Skills, continuity/verification and replaceable model/host/harness bindings.
+
+The public distribution does **not** copy TBHRC's internal organisational role profiles from `tbhrc/workspace/.folderdesk/agents/`. It ships portable agent-support primitives only. A client deployment adds persistent role profiles only when real operating need earns them; do not pre-create an agent organisation merely for symmetry.
+
 ## Core operating graph
 
 ```text
